@@ -218,21 +218,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 82649900947596648, guid: bc3079ab31d7a9343a0c47509facefea,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 713407aee0e92104987e7dbafefec9ea, type: 3}
-    - target: {fileID: 82649900947596648, guid: bc3079ab31d7a9343a0c47509facefea,
-        type: 2}
-      propertyPath: m_Pitch
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 82649900947596648, guid: bc3079ab31d7a9343a0c47509facefea,
-        type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3079ab31d7a9343a0c47509facefea, type: 2}
   m_IsPrefabAsset: 0
