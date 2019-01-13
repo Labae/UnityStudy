@@ -24,13 +24,24 @@ public class Rocket : MonoBehaviour
 	
 	void Update ()
     {
-        ProcessInput();
-	}
-
-    private void ProcessInput()
-    {
         BoostRocket();
         RotateRocket();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("OK");
+                break;
+            case "Fuel":
+                print("OK");
+                break;
+            default:
+                print("Dead");
+                break;
+        }
     }
 
     private void BoostRocket()
