@@ -28,7 +28,7 @@ public class EnemyEditor : Editor
             int childCount = World.transform.childCount;
             for (int element = 0; element < childCount; element++)
             {
-                enemyMovement.Path.Add(World.transform.GetChild(element).GetComponent<Block>());
+                enemyMovement.Path.Add(World.transform.GetChild(element).GetComponent<WayPoint>());
             }
         }
     }

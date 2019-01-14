@@ -5,36 +5,43 @@ using System.Text;
 
 [ExecuteInEditMode]
 [SelectionBase]
+[RequireComponent(typeof(WayPoint))]
 public class EditorSnap : MonoBehaviour
 {
-    [SerializeField] [Range(1f, 20f)] private float f_gridSize = 10.0f;
-
-    private TextMesh textMesh;
-    private StringBuilder str_Pos;
+    private WayPoint _wayPoint;
     
-    void Update ()
+    private void Awake()
     {
-        transform.position = CalcSnapPosition();
+        _wayPoint = GetComponent<WayPoint>();
     }
 
-    private Vector3 CalcSnapPosition()
+    void Update ()
     {
-        Vector3 snapPos;
+        SnapToGrid();
 
-        snapPos.x = Mathf.RoundToInt(transform.position.x / f_gridSize) * f_gridSize;
-        snapPos.y = 0.0f;
-        snapPos.z = Mathf.RoundToInt(transform.position.z / f_gridSize) * f_gridSize;
+        UpdateLabel();
+    }
 
-        textMesh = GetComponentInChildren<TextMesh>();
-        str_Pos = new StringBuilder();
+    private void SnapToGrid()
+    {
+        Vector2 gridPos = _wayPoint.GetGridPos();
 
-        str_Pos.Append(snapPos.x / f_gridSize);
+        transform.position = new Vector3(gridPos.x, 0.0f, gridPos.y);
+    }
+
+    private void UpdateLabel()
+    {
+        TextMesh textMesh = GetComponentInChildren<TextMesh>();
+        StringBuilder str_Pos = new StringBuilder();
+
+        int gridSize = _wayPoint.GetGridSize();
+        Vector2 gridPos = _wayPoint.GetGridPos();
+
+        str_Pos.Append(gridPos.x / gridSize);
         str_Pos.Append(", ");
-        str_Pos.Append(snapPos.z / f_gridSize);
+        str_Pos.Append(gridPos.y / gridSize);
 
         textMesh.text = str_Pos.ToString();
         gameObject.name = str_Pos.ToString();
-
-        return snapPos;
     }
 }

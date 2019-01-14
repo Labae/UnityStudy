@@ -7,9 +7,12 @@ public class EnemyMovement : MonoBehaviour
 {
     [Tooltip("Parents Name must be World")]
     [SerializeField] private GameObject world;
-    [SerializeField] private List<Block> path;
+    [SerializeField] private List<WayPoint> path;
 
-    public List<Block> Path
+    // Timer;
+    private WaitForSeconds _followPathWS;
+
+    public List<WayPoint> Path
     {
         get { return path; }
         set { path = value; }
@@ -22,19 +25,17 @@ public class EnemyMovement : MonoBehaviour
 
 	void Start ()
     {
-        PrintAllWayPoints();
+        _followPathWS = new WaitForSeconds(1.0f);
+
+        StartCoroutine(FollowPath());
 	}
 
-    private void PrintAllWayPoints()
+    private IEnumerator FollowPath()
     {
-        foreach(Block wayPoint in path)
+        foreach(WayPoint wayPoint in path)
         {
-            print(wayPoint.name);
+            transform.position = wayPoint.transform.position;
+            yield return _followPathWS;
         }
     }
-
-    void Update ()
-    {
-		
-	}
 }
