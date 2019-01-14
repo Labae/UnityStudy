@@ -63,7 +63,5 @@ public class WayPointPathTracker : MonoBehaviour
     private void MoveToWayPoint(int wayPointNumber)
     {
         target.position = Vector3.MoveTowards(target.position, wayPoints[wayPointNumber].position, Time.deltaTime);
-        // TODO : 카메라가 웨이 포이트를 바라보도록 함.
-        //target.rotation = Quaternion.LookRotation(wayPoints[wayPointNumber].position);
     }
 }

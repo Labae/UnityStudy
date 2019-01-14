@@ -12,6 +12,15 @@ public class SpawnManager : MonoBehaviour
     {
         _hero = GameObject.FindObjectOfType<Hero>();
 
-        _hero.transform.position = _heroSpawnTransform.position;
+        if (_heroSpawnTransform != null)
+        {
+            _hero.transform.position = _heroSpawnTransform.position;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, 0.5f);
     }
 }

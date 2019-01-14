@@ -9,7 +9,7 @@ public class Hero : MonoBehaviour
 	void Start ()
     {
         _heroStatus = GameManager.Instance.GetHeroStatus();
-
+        
         DontDestroyOnLoad(this.gameObject);
     }
 }

@@ -18,12 +18,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private GameObject _heroPrefab;
     private HeroStatus _heroStatus;
 
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        _instance = this;
+
+        if(_instance == null)
+        {
+            _instance = this;
+            Instantiate(_heroPrefab);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Start()
