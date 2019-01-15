@@ -8,6 +8,9 @@ using System.Text;
 [RequireComponent(typeof(WayPoint))]
 public class EditorSnap : MonoBehaviour
 {
+    [SerializeField] private WayPoint _startWayPoint;
+    [SerializeField] private WayPoint _endWayPoint;
+
     private WayPoint _wayPoint;
     
     private void Awake()
@@ -24,9 +27,13 @@ public class EditorSnap : MonoBehaviour
 
     private void SnapToGrid()
     {
-        Vector2 gridPos = _wayPoint.GetGridPos();
+        int gridSize = _wayPoint.GetGridSize();
 
-        transform.position = new Vector3(gridPos.x, 0.0f, gridPos.y);
+        transform.position = new Vector3 (
+            _wayPoint.GetGridPos().x * gridSize,
+            0.0f, 
+            _wayPoint.GetGridPos().y * gridSize
+            );
     }
 
     private void UpdateLabel()
@@ -37,9 +44,9 @@ public class EditorSnap : MonoBehaviour
         int gridSize = _wayPoint.GetGridSize();
         Vector2 gridPos = _wayPoint.GetGridPos();
 
-        str_Pos.Append(gridPos.x / gridSize);
+        str_Pos.Append(gridPos.x);
         str_Pos.Append(", ");
-        str_Pos.Append(gridPos.y / gridSize);
+        str_Pos.Append(gridPos.y);
 
         textMesh.text = str_Pos.ToString();
         gameObject.name = str_Pos.ToString();
