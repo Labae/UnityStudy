@@ -7,10 +7,7 @@ using System.Text;
 [SelectionBase]
 [RequireComponent(typeof(WayPoint))]
 public class EditorSnap : MonoBehaviour
-{
-    [SerializeField] private WayPoint _startWayPoint;
-    [SerializeField] private WayPoint _endWayPoint;
-
+{   
     private WayPoint _wayPoint;
     
     private void Awake()
@@ -41,7 +38,7 @@ public class EditorSnap : MonoBehaviour
         TextMesh textMesh = GetComponentInChildren<TextMesh>();
         StringBuilder str_Pos = new StringBuilder();
 
-        int gridSize = _wayPoint.GetGridSize();
+        // int gridSize = _wayPoint.GetGridSize(); never used
         Vector2 gridPos = _wayPoint.GetGridPos();
 
         str_Pos.Append(gridPos.x);
