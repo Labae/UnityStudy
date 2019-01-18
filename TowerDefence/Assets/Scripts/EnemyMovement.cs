@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private GameObject world;
     [SerializeField] private List<WayPoint> path;
 
+    private PathFinder pathFinder;
+
     // Timer;
     private WaitForSeconds _followPathWS;
 
@@ -21,21 +23,28 @@ public class EnemyMovement : MonoBehaviour
     public GameObject World
     {
         get { return world; }
+        set { world = value; }
     }
 
 	void Start ()
     {
         _followPathWS = new WaitForSeconds(1.0f);
 
-        StartCoroutine(FollowPath());
+        pathFinder = FindObjectOfType<PathFinder>();
+
+        List<WayPoint> path = pathFinder.GetWaypointPathList();
+
+        StartCoroutine(FollowPath(path));
 	}
 
-    private IEnumerator FollowPath()
+    private IEnumerator FollowPath(List<WayPoint> path)
     {
         foreach(WayPoint wayPoint in path)
         {
             transform.position = wayPoint.transform.position;
             yield return _followPathWS;
         }
+
+        Debug.Log("End Patroll");   // todo : remove log
     }
 }

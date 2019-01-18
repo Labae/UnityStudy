@@ -10,6 +10,7 @@ public class PathFinder : MonoBehaviour
 
     private Dictionary<Vector2Int, WayPoint> gridDictionary = new Dictionary<Vector2Int, WayPoint>();
     private Queue<WayPoint> waypointQueue = new Queue<WayPoint>();
+    private List<WayPoint> waypointPathList = new List<WayPoint>();
 
     private bool isSearching = true;
     private WayPoint searchCenter;      // the current searchCenter
@@ -20,12 +21,14 @@ public class PathFinder : MonoBehaviour
         Vector2Int.right,
         Vector2Int.left,
     };
-
-    void Start()
+    
+    public List<WayPoint> GetWaypointPathList()
     {
         LoadBlocks();
         SetStartAndEndWayPoint();
-        PathFind();
+        BFS();
+        CreatePath();
+        return waypointPathList;
     }
 
     private void LoadBlocks()
@@ -55,20 +58,20 @@ public class PathFinder : MonoBehaviour
         _endWaypoint.endColor = Color.green;
     }
 
-    private void PathFind()
+    private void BFS()
     {
         waypointQueue.Enqueue(_startWaypoint);
 
         while (waypointQueue.Count > 0 && isSearching == true)
         {
             searchCenter = waypointQueue.Dequeue();
-            searchCenter.IsExplored = true;
 
             HalfIfEndFound();
             ExploreNeighbours();
+            searchCenter.IsExplored = true;
         }
 
-        Debug.Log("Finished pathFinding");
+        Debug.Log("Finished pathFinding");  // todo : remove log
     }
 
     private void HalfIfEndFound()
@@ -76,7 +79,7 @@ public class PathFinder : MonoBehaviour
         if(searchCenter == _endWaypoint)
         {
             isSearching = false;
-            Debug.Log("Searching from end node, therefore stop");
+            Debug.Log("Searching from end node, therefore stop");   // todo: remove log
         }
     }
 
@@ -101,14 +104,27 @@ public class PathFinder : MonoBehaviour
     private void QueueNewNeighbour(Vector2Int exploreCoordinates)
     {
         WayPoint neighbour = gridDictionary[exploreCoordinates];
-        if (neighbour.IsExplored == true || waypointQueue.Contains(neighbour) == true)
-        {
 
-        }
-        else
+        if (neighbour.IsExplored == false && waypointQueue.Contains(neighbour) == false)
         {
             waypointQueue.Enqueue(neighbour);
             neighbour.ExploredFrom = searchCenter;
         }
+    }
+
+    private void CreatePath()
+    {
+        waypointPathList.Add(_endWaypoint);
+
+        WayPoint prevWaypoint = _endWaypoint.ExploredFrom;
+
+        while(prevWaypoint != _startWaypoint)
+        {
+            waypointPathList.Add(prevWaypoint);
+            prevWaypoint = prevWaypoint.ExploredFrom;
+        }
+
+        waypointPathList.Add(_startWaypoint);
+        waypointPathList.Reverse();
     }
 }

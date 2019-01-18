@@ -13,16 +13,18 @@ public class EnemyEditor : Editor
         base.OnInspectorGUI();
 
         enemyMovement = (EnemyMovement)target;
-
-        GameObject World = enemyMovement.World;
-
-        if (World == null)
+        
+        if (GUILayout.Button("Get World And WayPoints"))
         {
-            World = GameObject.Find("World");
-        }
+            GameObject World = enemyMovement.World;
 
-        if (GUILayout.Button("Get WayPoints"))
-        {
+            if (World == null)
+            {
+                World = GameObject.Find("World");
+
+                enemyMovement.World = World;
+            }
+
             enemyMovement.Path.Clear();
 
             int childCount = World.transform.childCount;
