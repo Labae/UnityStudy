@@ -52,6 +52,16 @@ public class PathFinder : MonoBehaviour
 
     private void SetStartAndEndWayPoint()
     {
+        if(_startWaypoint == null)
+        {
+            Debug.Log("StartWaypoint is null.");
+        }
+        else if(_endWaypoint == null)
+        {
+            Debug.Log("EndWaypoint is null");
+        }
+
+
         _startWaypoint.IsStartWayPoint = true;
         _endWaypoint.IsEndWayPoint = true;
         _startWaypoint.startColor = Color.red;
