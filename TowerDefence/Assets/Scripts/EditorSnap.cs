@@ -38,7 +38,7 @@ public class EditorSnap : MonoBehaviour
         TextMesh textMesh = GetComponentInChildren<TextMesh>();
         StringBuilder str_Pos = new StringBuilder();
 
-        // int gridSize = _wayPoint.GetGridSize(); never used
+        // int gridSize = _wayPoint.GetGridSize(); -> never used
         Vector2 gridPos = _wayPoint.GetGridPos();
 
         str_Pos.Append(gridPos.x);

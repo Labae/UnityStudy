@@ -24,11 +24,21 @@ public class PathFinder : MonoBehaviour
     
     public List<WayPoint> GetWaypointPathList()
     {
+        if (waypointPathList.Count == 0)
+        {
+            CalculatePath();
+        }
+
+        return waypointPathList;
+        
+    }
+
+    private void CalculatePath()
+    {
         LoadBlocks();
         SetStartAndEndWayPoint();
         BFS();
         CreatePath();
-        return waypointPathList;
     }
 
     private void LoadBlocks()

@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] private float f_moveToSecond = 2.0f;
+
     [Tooltip("Parents Name must be World")]
     [SerializeField] private GameObject world;
     [SerializeField] private List<WayPoint> path;
-
+    
     private PathFinder pathFinder;
 
     // Timer;
@@ -28,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
 
 	void Start ()
     {
-        _followPathWS = new WaitForSeconds(1.0f);
+        _followPathWS = new WaitForSeconds(f_moveToSecond);
 
         pathFinder = FindObjectOfType<PathFinder>();
 
