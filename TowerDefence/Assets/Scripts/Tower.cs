@@ -5,47 +5,67 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [SerializeField] private Transform objectToPan;
-    [SerializeField] private Transform targetEnemy;
+
+    private Transform targetEnemy;
 
     [SerializeField] private float f_attackRange = 30.0f;
     [SerializeField] private ParticleSystem projectileParticle;
 
     private void Start()
     {
-        CheckNullValue();
+        FindPan();
     }
 
-    private void CheckNullValue()
+    private void FindPan()
     {
-        if (objectToPan == null)
+        if(objectToPan == null)
         {
-            SetObjectToPan();
+            objectToPan = transform.GetChild(0);
         }
-
-        if (targetEnemy == null)
-        {
-            SetTargetEnemy();
-        }
-    }
-
-    private void SetObjectToPan()
-    {
-        objectToPan = transform.GetChild(0);
-    }
-
-    private void SetTargetEnemy()
-    {
-        targetEnemy = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
 
     void Update ()
     {
+        SetTargetEnemy();
         ProcessShoot();
+    }
+
+    private void SetTargetEnemy()
+    {
+        var sceneEnemies = FindObjectsOfType<EnemyDamage>();
+        if(sceneEnemies.Length == 0)
+        {
+            return;
+        }
+
+        Transform closestEnemy = sceneEnemies[0].transform;
+
+        foreach (EnemyDamage enemy in sceneEnemies)
+        {
+            closestEnemy = GetClosest(closestEnemy, enemy.transform);
+        }
+
+        targetEnemy = closestEnemy;
+    }
+
+    private Transform GetClosest(Transform transformA, Transform transformB)
+    {
+        var distToA = Vector3.Distance(transform.position, transformA.position);
+        var distToB = Vector3.Distance(transform.position, transformB.position);
+
+        if(distToA <= distToB)
+        {
+            return transformA;
+        }
+        else
+        {
+            return transformB;
+        }
     }
 
     private void ProcessShoot()
     {
-        if (targetEnemy)
+        if (targetEnemy != null)
         {
             objectToPan.LookAt(targetEnemy);
             CheckShootRange();

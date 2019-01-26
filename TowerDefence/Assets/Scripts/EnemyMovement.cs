@@ -46,7 +46,5 @@ public class EnemyMovement : MonoBehaviour
             transform.position = wayPoint.transform.position;
             yield return _followPathWS;
         }
-
-        Debug.Log("End Patroll");   // todo : remove log
     }
 }

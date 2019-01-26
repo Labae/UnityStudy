@@ -4,32 +4,18 @@ using UnityEngine;
 
 public class WayPoint : MonoBehaviour
 {
-    public Color startColor { get; set; }
-    public Color endColor { get; set; }
-    [SerializeField] private Color exploredColor;
-
-    public bool IsStartWayPoint { get; set; }
-    public bool IsEndWayPoint { get; set; }
-
-    private bool isExplored = false;
+    public bool IsPlaceable = true;
+    
     private const int i_gridSize = 10;
 
     private Vector2Int gridPos;
 
-    public bool IsExplored
-    {
-        get
-        {
-            return isExplored;
-        }
-
-        set
-        {
-            isExplored = value;
-        }
-    }
+    public bool IsExplored { get; set; }
 
     public WayPoint ExploredFrom { get; set; }
+
+    [SerializeField] private Tower towerPrefab;
+    [SerializeField] private Transform towerParent;
 
     public int GetGridSize()
     {
@@ -44,30 +30,14 @@ public class WayPoint : MonoBehaviour
             );
     }
 
-    private void Update()
+    private void OnMouseOver()
     {
-        ProcessSetTopColor();
-    }
-
-    private void ProcessSetTopColor()
-    {
-        if(IsStartWayPoint == true)
+        if(Input.GetMouseButtonDown(0))
         {
-            SetTopColor(startColor);
+            if(IsPlaceable == true)
+            {
+                Instantiate(towerPrefab, transform.position, Quaternion.identity, towerParent);
+            }
         }
-        else if(IsEndWayPoint == true)
-        {
-            SetTopColor(endColor);
-        }
-        else if (isExplored == true)
-        {
-            SetTopColor(exploredColor);
-        }
-    }
-
-    public void SetTopColor(Color changeColor)
-    {
-        MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = changeColor;
     }
 }
