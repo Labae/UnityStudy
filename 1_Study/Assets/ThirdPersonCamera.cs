@@ -142,11 +142,21 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
-        if(oldCameraType != currentType)
+        ChangeCameraProcess();
+
+        if (currentType == CameraType.Thrid)
+        {
+            ThridPersonCameraProcess();
+        }
+    }
+
+    private void ChangeCameraProcess()
+    {
+        if (oldCameraType != currentType)
         {
             MoveToPosition(currentType);
 
-            if(currentType == CameraType.First)
+            if (currentType == CameraType.First)
             {
                 RotateToFirstPersonRotation();
             }
@@ -155,11 +165,6 @@ public class ThirdPersonCamera : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && isArrive == true)
         {
             ChangeCameraType();
-        }
-
-        if(currentType == CameraType.Thrid)
-        {
-            ThridPersonCameraProcess();
         }
     }
     
