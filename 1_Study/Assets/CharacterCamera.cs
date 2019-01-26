@@ -97,7 +97,7 @@ public class SphericalCoordinates
     }
 }
 
-public class ThirdPersonCamera : MonoBehaviour
+public class CharacterCamera : MonoBehaviour
 {
     enum CameraType { First, Thrid };
 
