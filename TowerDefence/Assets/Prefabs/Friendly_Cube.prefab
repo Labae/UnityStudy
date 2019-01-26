@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4681646349881590}
   - component: {fileID: 114785215318565106}
   - component: {fileID: 114124810914764152}
+  - component: {fileID: 65515904414186924}
   m_Layer: 0
   m_Name: Friendly_Cube
   m_TagString: Untagged
@@ -268,6 +269,18 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65515904414186924
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581328463296626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!102 &102248324208408146
 TextMesh:
   serializedVersion: 3
@@ -311,4 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b774676fa3dd640aee232e3c570f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exploredColor: {r: 0.9519105, g: 1, b: 0, a: 0}
+  IsPlaceable: 1
+  towerPrefab: {fileID: 114280221731321874, guid: 1eafb9c1eae687a4592509f3350beaa9,
+    type: 2}
+  towerParent: {fileID: 0}

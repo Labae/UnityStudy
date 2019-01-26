@@ -70,12 +70,6 @@ public class PathFinder : MonoBehaviour
         {
             Debug.Log("EndWaypoint is null");
         }
-
-
-        _startWaypoint.IsStartWayPoint = true;
-        _endWaypoint.IsEndWayPoint = true;
-        _startWaypoint.startColor = Color.red;
-        _endWaypoint.endColor = Color.green;
     }
 
     private void BFS()
@@ -134,17 +128,23 @@ public class PathFinder : MonoBehaviour
 
     private void CreatePath()
     {
-        waypointPathList.Add(_endWaypoint);
+        SetAsPath(_endWaypoint);
 
         WayPoint prevWaypoint = _endWaypoint.ExploredFrom;
 
         while(prevWaypoint != _startWaypoint)
         {
-            waypointPathList.Add(prevWaypoint);
+            SetAsPath(prevWaypoint);
             prevWaypoint = prevWaypoint.ExploredFrom;
         }
 
-        waypointPathList.Add(_startWaypoint);
+        SetAsPath(_startWaypoint);
         waypointPathList.Reverse();
+    }
+
+    private void SetAsPath(WayPoint waypoint)
+    {
+        waypointPathList.Add(waypoint);
+        waypoint.IsPlaceable = false;
     }
 }
