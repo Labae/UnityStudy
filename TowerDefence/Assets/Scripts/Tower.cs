@@ -11,6 +11,8 @@ public class Tower : MonoBehaviour
     [SerializeField] private float f_attackRange = 30.0f;
     [SerializeField] private ParticleSystem projectileParticle;
 
+    public WayPoint baseWaypoint;
+
     private void Start()
     {
         FindPan();

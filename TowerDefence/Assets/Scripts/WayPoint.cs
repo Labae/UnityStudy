@@ -14,9 +14,6 @@ public class WayPoint : MonoBehaviour
 
     public WayPoint ExploredFrom { get; set; }
 
-    [SerializeField] private Tower towerPrefab;
-    [SerializeField] private Transform towerParent;
-
     public int GetGridSize()
     {
         return i_gridSize;
@@ -36,7 +33,7 @@ public class WayPoint : MonoBehaviour
         {
             if(IsPlaceable == true)
             {
-                Instantiate(towerPrefab, transform.position, Quaternion.identity, towerParent);
+                FindObjectOfType<TowerFactory>().AddTower(this);
             }
         }
     }

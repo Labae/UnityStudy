@@ -774,6 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 314111168}
   - component: {fileID: 314111169}
+  - component: {fileID: 314111170}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -832,6 +833,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startWaypoint: {fileID: 1903075331}
   _endWaypoint: {fileID: 1712271457}
+--- !u!114 &314111170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 314111167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8579c93c1c8cc174c8cf93c11f6fff73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerLimit: 5
+  towerPrefab: {fileID: 114280221731321874, guid: 1eafb9c1eae687a4592509f3350beaa9,
+    type: 2}
+  towerParent: {fileID: 548519876}
 --- !u!1 &350247104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,22 +1127,11 @@ Prefab:
       propertyPath: m_Name
       value: 1, 0
       objectReference: {fileID: 0}
-    - target: {fileID: 102248324208408146, guid: eaf952a371f05f24e84f1bb3736c7c4e,
-        type: 2}
-      propertyPath: m_Text
-      value: 1, 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114785215318565106, guid: eaf952a371f05f24e84f1bb3736c7c4e,
         type: 2}
       propertyPath: towerParent
       value: 
       objectReference: {fileID: 548519876}
-    - target: {fileID: 114785215318565106, guid: eaf952a371f05f24e84f1bb3736c7c4e,
-        type: 2}
-      propertyPath: towerPrefab
-      value: 
-      objectReference: {fileID: 114280221731321874, guid: 1eafb9c1eae687a4592509f3350beaa9,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaf952a371f05f24e84f1bb3736c7c4e, type: 2}
   m_IsPrefabAsset: 0
@@ -3682,6 +3687,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1581328463296626, guid: eaf952a371f05f24e84f1bb3736c7c4e, type: 2}
       propertyPath: m_Name
+      value: 1, -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 102248324208408146, guid: eaf952a371f05f24e84f1bb3736c7c4e,
+        type: 2}
+      propertyPath: m_Text
       value: 1, -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
