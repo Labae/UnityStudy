@@ -9,8 +9,8 @@ public class SphericalCoordinates
     private float m_azimuth;
     private float m_elevation;
 
-    [SerializeField] private float m_minRadius = 3.0f;
-    [SerializeField] private float m_maxRadius = 20.0f;
+    [SerializeField] private float m_minRadius = 1.0f;
+    [SerializeField] private float m_maxRadius = 10.0f;
 
     [SerializeField] private float m_degreeMinAzimuth = 0.0f;
     [SerializeField] private float m_degreeMaxAzimuth = 360.0f;
@@ -123,12 +123,16 @@ public class CharacterCamera : MonoBehaviour
 
     private float f_scrollWheel;
 
-    [SerializeField]
-    private float f_moveSpeed = 10.0f;
-    [SerializeField]
-    private float f_whileMovingRotateSpeed = 10.0f;
+    [SerializeField] [Range(1f,5f)]
+    private float f_moveSpeed = 5.0f;
+    private float f_offsetMoveSpeed;
+    [SerializeField] [Range(0.1f,1f)]
+    private float f_whileMovingRotateSpeed = 1.0f;
+    private float f_offsetRotateSpeed;
     
     private bool isArrive = true;
+    private bool isCalcMoveSpeed = false;
+    private bool isCalcRotateSpeed = false;
 
     [SerializeField]
     private Transform firstPersonTransform;
@@ -164,6 +168,8 @@ public class CharacterCamera : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && isArrive == true)
         {
+            isCalcMoveSpeed = false;
+            isCalcRotateSpeed = false;
             ChangeCameraType();
         }
     }
@@ -171,16 +177,28 @@ public class CharacterCamera : MonoBehaviour
     private void MoveToPosition(CameraType type)
     {
         Vector3 movePosition = GetMovePosition(type);
-
+        
         if (transform.position != movePosition)
         {
             isArrive = false;
-            transform.position = Vector3.MoveTowards(transform.position, movePosition, Time.deltaTime * f_moveSpeed);
+            CalcMoveSpeed(movePosition);
+
+            transform.position = Vector3.MoveTowards(transform.position, movePosition, Time.deltaTime * f_offsetMoveSpeed * f_moveSpeed);
         }
         else
         {
             isArrive = true;
             oldCameraType = currentType;
+        }
+    }
+
+    private void CalcMoveSpeed(Vector3 movePosition)
+    {
+        if (isCalcMoveSpeed == false)
+        {
+            f_offsetMoveSpeed = Vector3.Distance(transform.position, movePosition);
+
+            isCalcMoveSpeed = true;
         }
     }
 
@@ -206,7 +224,19 @@ public class CharacterCamera : MonoBehaviour
 
     private void RotateToFirstPersonRotation()
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, firstPersonTransform.rotation, Time.deltaTime * f_whileMovingRotateSpeed);
+        CalcRotateSpeed();
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, firstPersonTransform.rotation, Time.deltaTime * f_offsetRotateSpeed * f_whileMovingRotateSpeed);
+    }
+
+    private void CalcRotateSpeed()
+    {
+        if(isCalcRotateSpeed == false)
+        {
+            f_offsetRotateSpeed = Quaternion.Angle(transform.rotation, firstPersonTransform.rotation);
+
+            isCalcRotateSpeed = true;
+        }
     }
 
     private void ChangeCameraType()
@@ -296,5 +326,8 @@ public class CharacterCamera : MonoBehaviour
     private void FirstPersonCameraProcess()
     {
         // todo...
+        // 1. FirstPerson Zoom
+        // 2. Clamp
+        // 3. ...
     }
 }
